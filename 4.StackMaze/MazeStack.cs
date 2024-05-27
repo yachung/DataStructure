@@ -1,11 +1,17 @@
 ﻿using System;
 
-// 유저의 경험치를 저장할 때 사용하는 스택
-public class ExpStack<T>
+public class MazeStack<T>
 {
     private int count = 0;
     private const int maxCapacity = 100;
     private T[] data = new T[maxCapacity];
+
+    public MazeStack()
+    {
+        // initialize
+        count = 0;
+        data = new T[maxCapacity];
+    }
 
     public int Count { get; }
 
@@ -25,11 +31,6 @@ public class ExpStack<T>
             return count == 0;
         }
     }
-    
-    public ExpStack()
-    {
-
-    }
 
     // Push
     public bool Push(T item)
@@ -45,7 +46,7 @@ public class ExpStack<T>
 
         return true;
     }
-    
+
     // Pop
     public bool Pop(out T? outValue)
     {
@@ -54,7 +55,7 @@ public class ExpStack<T>
             Console.WriteLine("Error : Stack Is Full");
 
             // C#의 out 키워드로 전달된 변수는 함수에서 꼭 값을 할당 해야함.
-            outValue = default;
+            outValue = default(T);
 
             return false;
         }

@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections;
 
 // 동적 배열을 구현하는 클래스
 // Dynamic Array
-public class CustomList<T>
+public class CustomList<T> : IEnumerator
 {
     // 내부 저장소
     private T[] data;
     private int size = 0;           // 리스트의 크기를 추적해 저장할 변수
     private int capacity = 2;       // 리스트가 현재 저장할 수 있는 실제 크기
+
+    // GetEnumertator 구현에 필요한 변수
+    private int index = 0;
+    private T current;
 
     // 생성자
     public CustomList() 
@@ -117,6 +122,31 @@ public class CustomList<T>
         return true;
     }
 
+    // 리스트에서 다음 위치에 있는 요소가 있으면 true를 반환하고,
+    // 없으면 false를 반환하면서 current 변수에 현재 위치의 요소를 설정하는 함수.
+    public bool MoveNext()
+    {
+        if (index < size)
+        {
+            // 현재 위치의 요소를 할당.
+            // 다음 위치를 가리키기 위해 인덱스 증가.
+            current = data[index++];
+
+            // 다음으로 이동이 가능하다고 true 반환.
+            // forautoi 
+            return true;
+        }
+
+        return false;
+    }
+
+    // IEnumerator 초기화
+    public void Reset()
+    {
+        index = 0;
+        current = default(T);
+    }
+
     // 길이 확인
     public int Count
     {
@@ -124,5 +154,13 @@ public class CustomList<T>
         { 
             return size; 
         }
+    }
+
+    public object Current { get { return current; } }
+
+    public IEnumerator GetEnumerator()
+    {
+        Reset();
+        return this;
     }
 }

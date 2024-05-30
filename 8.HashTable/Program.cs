@@ -13,6 +13,7 @@
 
         return hash;
     }
+
     static void Main(string[] args)
     {
         // 해시함수 테스트.
